@@ -13,7 +13,7 @@ import bcrypt from "bcryptjs";
 export const setting = async (values: z.infer<typeof SettingSchema>) => {
   const user = await currentUser();
 
-  if (!user) {
+  if (!user?.id) {
     return { error: "Unauthorized" };
   }
 
@@ -27,7 +27,7 @@ export const setting = async (values: z.infer<typeof SettingSchema>) => {
     values.email = undefined;
     values.password = undefined;
     values.newPassword = undefined;
-    values.isTwoFactorEnable = undefined;
+    values.isTwoFactorEnabled = undefined;
   }
 
   if (values.email && values.email !== user.email) {
